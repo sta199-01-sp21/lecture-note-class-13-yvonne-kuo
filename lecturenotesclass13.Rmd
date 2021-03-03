@@ -189,7 +189,7 @@ Consider 20 1-bedroom apartments that were randomly selected on
 Craigslist Manhattan from apartments listed as "by owner".
 
 ```{r data_manhattan}
-manhattan <- read_csv("~/manhattan.csv")
+manhattan <- read_csv("~/R/lecture-note-class-13-yvonne-kuo/manhattan.csv")
 ```
 
 Consider 3-10 day survival of mice randomized to various
@@ -250,8 +250,8 @@ Create a 95% bootstrap confidence interval for the population *mean* price of
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
+- Population: 1 bedroom apartments in Manhattan
+- Parameter of interest: 
 - Sample:
 - Sample size:
 
@@ -330,6 +330,8 @@ get_ci(boot_means, level = 0.95)
 
 What does this mean?
 
+We are 95% that the mean price of 1 bedroom Manhattan apartments is between 2299 and 2977 dollars.
+
 **Interpretation**:
 
 #### Practice
@@ -339,8 +341,15 @@ population *median* price of 1-bedroom apartments in Manhattan. Do this in a
 single code chunk with a single pipeline. Provide an interpretation of your result.
 
 ```{r practice_1}
-
+manhattan %>% 
+  specify(response = rent) %>% 
+  generate(reps = 10000, type = "bootstrap") %>% 
+  calculate(stat = "median") %>%
+  get_ci(level = 0.95)
 ```
+
+We are 95% confident that the median price of 1 bedroom Manhattan apartments is between 2162 and 2875 dollars.
+
 
 ### A confidence interval for the population proportion - $p$
 
@@ -348,10 +357,10 @@ Consider the mice radiation dataset. Suppose we want to compute a 95% confidence
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
-- Sample:
-- Sample size:
+- Population: Mice not on the treatment*
+- Parameter of interest: Proportion
+- Sample: Mice not on treatment
+- Sample size: 261
 
 ```{r boot_mice}
 boot_prop <- mice %>% 
@@ -368,6 +377,8 @@ ci_mice_died
 ```
 
 What does this mean?
+
+We are 95% confident that the proportion of mice that died while on treatment is between 0.690 and 0.793.
 
 **Interpretation**:
 
