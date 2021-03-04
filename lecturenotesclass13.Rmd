@@ -1,6 +1,6 @@
 ---
 title: "Simulation-based inference - confidence intervals"
-author: ""
+author: "Yvonne Kuo"
 date: "March 3, 2021"
 output: html_document
 editor_options: 
@@ -392,21 +392,31 @@ visualise(boot_prop) +
 Consider the mice radiation results. Suppose we want to compute a 90% confidence interval for the proportion of mice that lived while on the treatment, regardless of the dose.
 
 ```{r practice_2_bootstrap}
-
+boot_prop_lived <- mice %>%
+    filter(treat == 1) %>%
+    mutate(lived = if_else(died == 0, "yes", "no")) %>%
+    specify(response = lived, success = "yes") %>%
+    generate(reps = 10000, type = "bootstrap") %>% 
+    calculate(stat = "prop")
 ```
 
 ```{r practice_2_ci}
-
+ci_mice_lived <- get_ci(boot_prop_lived, level = .90)
+ci_mice_lived
 ```
 
 Visualizing our Resuts:
 
 ```{r practice_2_visualize}
+visualise(boot_prop_lived) +
+  shade_ci(ci_mice_lived)
 
 ```
 
 
 Give an interpretation of your result.
+
+We are 90% confident that the proportion of mice that lived on the treatment is between 0.552 and 0.651.
 
 
 # References
