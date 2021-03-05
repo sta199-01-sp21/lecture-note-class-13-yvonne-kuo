@@ -2,8 +2,10 @@
 title: "Simulation-based inference - confidence intervals"
 author: "Yvonne Kuo"
 date: "March 3, 2021"
-output: html_document
-editor_options: 
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
   chunk_output_type: console
 ---
 
@@ -250,10 +252,10 @@ Create a 95% bootstrap confidence interval for the population *mean* price of
 
 First, identify the following:
 
-- Population: 1 bedroom apartments in Manhattan
-- Parameter of interest: 
-- Sample:
-- Sample size:
+- Population: 1 bedroom apartments in Manhattan.
+- Parameter of interest: Mean price
+- Sample: 1 bedroom apartments in Manhattan.
+- Sample size: 20.
 
 To create our confidence interval, we'll follow the four-step bootstrap
 scheme outlined in the slides using functions from `infer`.
@@ -330,9 +332,7 @@ get_ci(boot_means, level = 0.95)
 
 What does this mean?
 
-We are 95% that the mean price of 1 bedroom Manhattan apartments is between 2299 and 2977 dollars.
-
-**Interpretation**:
+**Interpretation**: We are 95% confident that the mean price of 1 bedroom Manhattan apartments is between 2299 and 2977 dollars.
 
 #### Practice
 
@@ -357,8 +357,8 @@ Consider the mice radiation dataset. Suppose we want to compute a 95% confidence
 
 First, identify the following:
 
-- Population: Mice not on the treatment*
-- Parameter of interest: Proportion
+- Population: Mice not on the treatment
+- Parameter of interest: Proportion that died
 - Sample: Mice not on treatment
 - Sample size: 261
 
@@ -378,7 +378,7 @@ ci_mice_died
 
 What does this mean?
 
-We are 95% confident that the proportion of mice that died while on treatment is between 0.690 and 0.793.
+We are 95% confident that the proportion of mice that died while not on treatment is between 0.690 and 0.793.
 
 **Interpretation**:
 
